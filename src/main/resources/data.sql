@@ -1,1 +1,1 @@
-insert into branch values('1','Ranga',29.3,45.3);
+insert into branch (id, name, lon, lat) values ('1', 'Headquarter', -45.3, -23.34);
