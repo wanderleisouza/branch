@@ -1,0 +1,79 @@
+= Branch microservice
+:toc:
+
+== Getting started 
+
+=== Install Java 11
+
+	brew tap AdoptOpenJDK/openjdk
+	brew cask install adoptopenjdk11
+	which java
+	
+=== Instal Maven3
+
+ 	brew install maven
+ 	mvn --version
+	
+=== Install Docker Desktop for Mac and 
+
+https://docs.docker.com/docker-for-mac/install/ + 
+...and setup kubernetes https://docs.docker.com/docker-for-mac/#kubernets
+
+Verify docker installation
+ 
+	docker -v
+
+=== SpringToolSuite4/Eclipse Plugins (Optional)
+
+https://marketplace.eclipse.org/content/asciidoctor-editor
+
+http://marketplace.eclipse.org/content/eclipse-docker-tooling +
+To activate: Window > Show View > Other... (Docker Explorer)
+
+Optional: +
+https://marketplace.eclipse.org/content/yaml-editor
+
+=== Install Lombok
+
+download available from: https://projectlombok.org
+
+	java -jar lombok.jar
+
+=== Install pjson
+
+Install pygments and xmlformatter
+
+	pip install pjson xmlformatter
+
+== Build and Test using Maven
+
+. Run application:
+
+	mvn spring-boot:run
+
+. Test application
+
+	curl -s localhost:8080/?lon=1231.34&lat=2312.21 | pjson
+
+== Jib builder and run using a Docker image
+
+. To create the image, Jib can use the *local* Docker daemon
+
+	mvn clean package jib:dockerBuild -Dimage=examples/branch
+	
+	docker run -p 8080:8080 examples/branch
+
+. Test application
+
+	curl -s localhost:8080/?lon=1231.34&lat=2312.21&limit=3 | pjson	
+	
+== Spring Boot and H2 Magic
+
+. H2 provides a web interface called H2 Console to see the data. Let’s enable h2 console in the `application.properties`.
+
+	spring.h2.console.enabled=true
+
+When you reload the application, you can launch up H2 Console at http://localhost:8080/h2-console.
+
+CAUTION: If you are unable to see the tables... + 
+Usually, the table’s are created but the url used in H2 GUI Console is wrong. Change the database url to *jdbc:h2:mem:testdb*

@@ -1,0 +1,1 @@
+insert into branch values('1','Ranga',29.3,45.3);
