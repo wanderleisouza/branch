@@ -6,7 +6,6 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 
 import com.example.branch.spatial.GeoDistance;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +23,9 @@ public class Branch {
 	private double lon;
 	private double lat;
 
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@Transient
 	private double distance;
-
+	
 	public Double getDistance(double lonB, double latB) {
 		return GeoDistance.vincentyDistance(this.lon, this.lat, lonB, latB);
 	}
