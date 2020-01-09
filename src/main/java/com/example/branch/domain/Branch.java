@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
+import com.example.branch.spatial.GeoDistance;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Getter;
@@ -14,16 +15,20 @@ import lombok.Setter;
 @Entity
 @Getter @Setter @RequiredArgsConstructor
 public class Branch {
-	
+
 	@Id
 	@GeneratedValue
 	private String id;
 	private String name;
-	private Double lon;	
-	private Double lat;
-	
+	private double lon;
+	private double lat;
+
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@Transient
-	private Double distance;
+	private double distance;
+
+	public double getDistance(double lonB, double latB) {
+		return GeoDistance.vincentyDistance(this.lon, this.lat, lonB, latB);
+	}
 
 }
