@@ -1,43 +1,41 @@
 package com.example.branch.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.Optional;
-
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.example.branch.domain.Branch;
+import com.example.branch.exception.BranchNotFoundException;
 import com.example.branch.repository.BranchRepository;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
+@SpringBootTest
+@AutoConfigureMockMvc
 public class BranchServiceTests {
-
+	
     @Autowired
-    private TestEntityManager entityManager;
+    private BranchService branchService;
  
-    @Autowired
+    @MockBean
     private BranchRepository branchRepository;
     
-    @Test
-    public void whenFindByIdThenReturnBranch() {
-    	
-        // given
-        Branch branch = new Branch("1", "Headquarter", -43.121d, -23.2333d, 0);
-        entityManager.persist(branch);
-        entityManager.flush();
-     
-        // when
-        Optional<Branch> found = branchRepository.findById(branch.getId());
-     
-        // then
-        assertThat(found.get().getName()).isEqualTo(branch.getName());
-        
+    @Before
+    public void setUp() {
+        Mockito.when(branchRepository.findById("ABC")).thenThrow(NullPointerException.class);
     }
-	
+    
+    @Test
+    public void whenInvalidIDthenBranchShouldBeNotFound() {
+    	assertThrows(BranchNotFoundException.class, () -> branchService.findById("ABC"));
+     }
+   
 }
