@@ -35,8 +35,12 @@ public class BranchService {
         return branchRepository.findAll();
     }
     
-    public Iterable<Branch> findNearestByLongLat() {
-        var allBranches = branchRepository.findAll();
+    public Iterable<Branch> findNearestByLonLat(double lon, double lat, double radius) {
+        logger.info("lon {}", lon);
+        logger.info("lat {}", lat);
+        logger.info("radius {}", radius);
+        
+    	var allBranches = branchRepository.findAll();
         //do lat lng mojo filter here
         return allBranches;
     }
