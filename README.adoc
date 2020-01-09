@@ -65,7 +65,7 @@ Install pygments and xmlformatter
 
 . Test application
 
-	curl -s localhost:8080/?lon=1231.34&lat=2312.21&limit=3 | pjson	
+	curl -s localhost:8080/?lon=1231.34&lat=2312.21&radius=5000 | pjson	
 	
 == Spring Boot and H2 Magic
 
