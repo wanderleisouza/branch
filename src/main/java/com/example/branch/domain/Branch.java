@@ -24,11 +24,11 @@ public class Branch {
 	private double lon;
 	private double lat;
 
-	@JsonInclude(JsonInclude.Include.NON_NULL)
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@Transient
 	private double distance;
 
-	public double getDistance(double lonB, double latB) {
+	public Double getDistance(double lonB, double latB) {
 		return GeoDistance.vincentyDistance(this.lon, this.lat, lonB, latB);
 	}
 
