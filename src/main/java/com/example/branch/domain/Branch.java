@@ -11,9 +11,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Getter @Setter @RequiredArgsConstructor
+@Getter @Setter @RequiredArgsConstructor @ToString
 public class Branch {
 
 	@Id

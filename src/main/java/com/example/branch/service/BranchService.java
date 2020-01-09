@@ -17,7 +17,8 @@ public class BranchService {
 	@Autowired
 	BranchRepository branchRepository;
 	
-    public Branch save(Branch branch) {
+    public synchronized Branch save(Branch branch) {
+    	logger.info("saving branch {}", branch);
         return branchRepository.save(branch);
     }
     
@@ -26,6 +27,7 @@ public class BranchService {
     }
     
     public void deleteById(String id) {
+    	logger.info("deleting branch id {}", id);
         branchRepository.deleteById(id);
     }
     
