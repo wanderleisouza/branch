@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
-class GeoDistanceTest {
+class GeoDistanceTests {
 
 	private static final int TOLERANCE = 50; // in meters
 
