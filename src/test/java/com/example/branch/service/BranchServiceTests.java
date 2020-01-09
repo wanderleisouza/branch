@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.Arrays;
 import java.util.stream.StreamSupport;
 
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -51,6 +50,31 @@ public class BranchServiceTests {
         Mockito.when(branchRepository.findById("ABC")).thenThrow(NullPointerException.class);
         Mockito.reset(branchRepository);
     	assertThrows(BranchNotFoundException.class, () -> branchService.findById("ABC"));
+    }
+    
+    @Test
+    public void whenFindByLatLongShouldReturnNearstItems() {
+    	
+        Branch b1 = new Branch("A103", "VILA LEOPOLDINA", -46.728521, -23.530247, 0);
+        Branch b2 = new Branch("A1281", "VILA LEOPOLDINA", -46.727677, -23.534168, 0);
+        Branch b3 = new Branch("A46", "TUCURUVI", -46.617545, -23.472328, 0);
+        Iterable<Branch> iterable = Arrays.asList(b1, b2, b3);
+        
+        Mockito.reset(branchRepository);
+        Mockito.when(branchRepository.findAll()).thenReturn(iterable);
+      
+    	Iterable<Branch> all = branchService.findNearestByLonLat(-46.739716, -23.525636, 20000);
+    	long actual = StreamSupport.stream(all.spliterator(), false).count();
+    	assertEquals(3, actual);
+        
+    	all = branchService.findNearestByLonLat(-46.739716, -23.525636, 2000);
+    	actual = StreamSupport.stream(all.spliterator(), false).count();
+    	assertEquals(2, actual);
+    	
+    	all = branchService.findNearestByLonLat(-46.739716, -23.525636, 20);
+    	actual = StreamSupport.stream(all.spliterator(), false).count();
+    	assertEquals(0, actual);
+    	
     }
     
 }
