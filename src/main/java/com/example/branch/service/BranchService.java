@@ -43,7 +43,7 @@ public class BranchService {
     	var iterable = branchRepository.findAll();
     	return StreamSupport.stream(iterable.spliterator(), false)
     			.filter(b -> { 
-    				b.setDistance(b.getDistance(lon, lat));
+    				b.setDistance(b.getDistance(lon, lat).doubleValue());
     				return b.getDistance() < radius; 
     				} )
     			.collect(Collectors.toList());
