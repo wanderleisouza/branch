@@ -58,6 +58,30 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>1.5.0</version>
+				<configuration>
+					<from>
+						<image>gcr.io/distroless/java:11</image>
+					</from>
+					<to>
+						<image>${docker.name}</image>
+					</to>
+					<container>
+						<environment>
+							<_JAVA_OPTIONS>'-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005'</_JAVA_OPTIONS>
+						</environment>
+						<ports>
+							<port>8080</port>
+							<port>5005</port>
+						</ports>
+						<!-- Jib strips timestamps in order to maintain reproducibility; you 
+							can bypass this behavior removing by setting creationTime <creationTime>USE_CURRENT_TIMESTAMP</creationTime> -->
+					</container>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
