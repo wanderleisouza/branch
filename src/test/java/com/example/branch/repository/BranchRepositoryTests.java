@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.branch.domain.Branch;
 
-@RunWith(SpringRunner.class)
 @DataJpaTest
 public class BranchRepositoryTests {
 

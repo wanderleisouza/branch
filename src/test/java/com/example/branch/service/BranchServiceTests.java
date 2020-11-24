@@ -7,18 +7,15 @@ import java.util.Arrays;
 import java.util.stream.StreamSupport;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.branch.domain.Branch;
 import com.example.branch.exception.BranchNotFoundException;
 import com.example.branch.repository.BranchRepository;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class BranchServiceTests {
 	
